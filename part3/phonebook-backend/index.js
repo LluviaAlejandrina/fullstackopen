@@ -14,6 +14,7 @@ app.use(cors({origin: 'http://localhost:5173'})) // only my phonebook front end 
 //Add :body to the format string
 // Morgan needs req.body, and that only exists after JSON parsing.
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+app.use(express.static('dist')) // look into the dist folder first ( serve the front end files)
 
 let persons =[
     {
