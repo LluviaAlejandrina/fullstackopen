@@ -11,7 +11,7 @@ GET https://fullstackopen-ts2k.onrender.com/api/persons/2
 
 
 ### delete a person
-DELETE https://fullstackopen-ts2k.onrender.com/api/persons/3
+DELETE https://fullstackopen-ts2k.onrender.com/api/persons/69d93ad0a281adfb24926180
 
 ### add a person
 POST  https://fullstackopen-ts2k.onrender.com/api/persons
