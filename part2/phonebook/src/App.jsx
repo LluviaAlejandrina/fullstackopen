@@ -29,7 +29,7 @@ const AddContact =({newName,newNumber,handleInputName,handleInputNumber,addName}
       <h2>New contact</h2>
       <form onSubmit={addName}>
         <div>name: <input value={newName} onChange ={handleInputName}/></div>
-        <div>number: <input value={newNumber} type="number" onChange={handleInputNumber} /></div>
+        <div>number: <input value={newNumber} type="text" onChange={handleInputNumber} /></div>
         <div>
           <button type="submit">add</button>
         </div>
@@ -83,13 +83,19 @@ const App = () => {
         personsService.update(person.id,updatedPerson )
         .then(updatedObjPerson => {
           setPersons(persons.map( person => person.id === updatedObjPerson.id ? updatedObjPerson : person))
-          setNotification(`Updated ${updatedObjPerson.name}'s number`)
+          setNotification({
+            message: `Updated ${updatedObjPerson.name}'s number`,
+            type: 'success'
+          })
           setTimeout(()=> setNotification(null), 5000)
           setNewName('')
           setNewNumber('')
         })
         .catch (error => {
-          setNotification(`${updatedPerson.name} was already removed from server!`)
+          setNotification({
+            message: `${updatedPerson.name} was already removed from server!`,
+            type: 'success'
+          })
           setTimeout(()=> setNotification(null), 5000)
           setPersons(persons.filter(person => person.id !== updatedPerson.id))
 
@@ -107,11 +113,23 @@ const App = () => {
     .then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
 
-      setNotification(`Added ${returnedPerson.name} successfully`)
+      setNotification({
+       message: `Added ${returnedPerson.name} successfully`,
+        type: 'success'
+      })
       setTimeout(() => setNotification(null), 5000)
 
       setNewName('')
       setNewNumber('')
+    })
+    .catch(error=> {
+      // this is the way to access the error message
+      console.log(error.response.data.error)
+      setNotification({
+        message: error.response.data.error,
+        type: 'error'
+      })
+          setTimeout(()=> setNotification(null), 5000)
     })
 
     }
